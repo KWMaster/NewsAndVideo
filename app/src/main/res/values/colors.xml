@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#FB7299</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="windowBackground">#fafafa</color>
+    <!--左滑菜单颜色-->
+    <color name="main_color">#FB7299</color>
+    <color name="launcher_item_select">#54B0E9</color>
+    <color name="launcher_item_normal">#9B9B9B</color>
+    <color name="white_normal">#ffffffff</color>
+    <color name="split_line">#E7E7E7</color>
+    <color name="menu_left_item_select">#EEEEEE</color>
+    <color name="menu_left_item_text_select">#FB7299</color>
+    <color name="menu_left_item_text_normal">#000000</color>
+
+    <color name="main_title_text_select">#ffffffff</color>
+    <color name="main_title_text_normal">#bebebe</color>
+
+    <color name="half_transparent">#aeFB7299</color>
+    <color name="test">#FB7299</color>
+    <color name="black">#000</color>
+    <color name="grey">#ff5b5a5a</color>
+    <color name="red">#d83737</color>
+
+    <!-- 底部字体颜色 -->
+    <color name="main_txt_nor">#ffffff</color>
+    <color name="main_txt_sel">#d83737</color>
+    <color name="background_tab_pressed">#6633B5E5</color>
+    <color name="light_black_bg" >#25282f</color>
+</resources>

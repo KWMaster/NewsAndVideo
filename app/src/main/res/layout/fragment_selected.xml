@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              xmlns:fab="http://schemas.android.com/apk/res-auto"
+              android:animateLayoutChanges="true"
+              xmlns:skin="http://schemas.android.com/android/skin"
+              android:orientation="vertical">
+
+    <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+    <com.chanven.lib.cptr.PtrClassicFrameLayout
+        xmlns:cube_ptr="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/recycler_view_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white_normal"
+        cube_ptr:ptr_duration_to_close="200"
+        cube_ptr:ptr_duration_to_close_header="700"
+        cube_ptr:ptr_keep_header_when_refresh="true"
+        cube_ptr:ptr_pull_to_fresh="false"
+        cube_ptr:ptr_ratio_of_header_height_to_refresh="1.2"
+        cube_ptr:ptr_resistance="3">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white_normal"/>
+
+
+    </com.chanven.lib.cptr.PtrClassicFrameLayout>
+        <TextView
+            android:id="@+id/refresh_indicator"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:visibility="gone"
+            android:textSize="20dp"
+            android:background="@color/launcher_item_select"
+            skin:enable="true"
+            android:textColor="@color/white_normal"
+            android:text="刷新完成"/>
+    <com.melnykov.fab.FloatingActionButton
+        android:id="@+id/fab1"
+        android:src="@mipmap/ic_top"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="15dp"
+        fab:fab_colorNormal="@color/main_color"
+        fab:fab_colorPressed="@color/launcher_item_select"
+        fab:fab_colorRipple="@color/launcher_item_normal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+    </RelativeLayout>
+</LinearLayout>
+
+    <!--
+                ptr_duration_to_close回弹到刷新高度所用时间
+                ptr_duration_to_close_header头部回弹所用时间
+                ptr_pull_to_fresh true:下拉刷新 false:释放刷新
+                ptr_ratio_of_header_height_to_refresh 触发刷新时移动的位置比例
+                默认，`1.2f`，移动达到头部高度1.2倍时可触发刷新操作。
+                ptr_resistance 阻尼系数 默认: `1.7f`，越大，感觉下拉时越吃力。
+            -->

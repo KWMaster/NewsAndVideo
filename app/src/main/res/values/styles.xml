@@ -1,0 +1,38 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="android:textColorSecondary">#ffffff</item>
+    </style>
+
+    <!--Toolbart_itleTextAppearance-->
+    <style name="toptoolabrTextTitleAppearance" parent="@style/ThemeOverlay.AppCompat.ActionBar">
+        <item name="android:textSize">16sp</item>
+    </style>
+    <!--TabLayout_tabTextAppearance-->
+    <style name="toptabTabLayoutTextAppearance" parent="TextAppearance.AppCompat.Widget.ActionBar.Title">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="ToolbarPopupTheme" parent="@style/ThemeOverlay.AppCompat.Light">
+        <item name="android:colorBackground">@color/white_normal</item> 也可以设置背景色以及menu中的其他属性
+        <item name="actionOverflowMenuStyle">@style/OverflowMenuStyle</item>
+    </style>
+
+    <style name="OverflowMenuStyle" parent="Widget.AppCompat.Light.PopupMenu.Overflow">
+        <item name="overlapAnchor">false</item>  <!--设置不覆盖锚点-->
+    </style>
+
+
+    <style name="MyCheckBox" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:button">@drawable/checkbox_style</item>
+    </style>
+    <!--<style name="ColorTranslucentTheme" parent="AppTheme">-->
+        <!--&lt;!&ndash;在Android 4.4之前的版本上运行，直接跟随系统主题&ndash;&gt;-->
+    <!--</style>-->
+</resources>
