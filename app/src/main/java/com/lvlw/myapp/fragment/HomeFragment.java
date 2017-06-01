@@ -35,10 +35,10 @@ public class HomeFragment extends SkinBaseFragment {
 
     private ViewPager mViewPager;
     private AppBarLayout mAppBarLayout;
-//    private SelectedFragment selectedFragment;
-    private SelectedFragment selecteFragment;
-    private SubscribeFragment subscribeFragment;
-    private FindFragment findFragment;
+//    private TechnologyFragment selectedFragment;
+    private TechnologyFragment technologyFragment;
+    private GameFragment gameFragment;
+    private FilmFragment filmFragment;
     private DrawerLayout mDrawerLayout;
 //    private ;
     public HomeFragment() {
@@ -80,14 +80,14 @@ public class HomeFragment extends SkinBaseFragment {
 
         FragmentAdapter pagerAdapter=new FragmentAdapter(getActivity().getSupportFragmentManager());
 
-//        selectedFragment=new SelectedFragment();
-        selecteFragment=new SelectedFragment();
-        subscribeFragment=new SubscribeFragment();
-        findFragment=new FindFragment();
+//        selectedFragment=new TechnologyFragment();
+        technologyFragment=new TechnologyFragment();
+        gameFragment=new GameFragment();
+        filmFragment=new FilmFragment();
 
-        pagerAdapter.addFragment(selecteFragment,"科技");
-        pagerAdapter.addFragment(subscribeFragment,"游戏");
-        pagerAdapter.addFragment(findFragment,"电影");
+        pagerAdapter.addFragment(technologyFragment,"科技");
+        pagerAdapter.addFragment(gameFragment,"游戏");
+        pagerAdapter.addFragment(filmFragment,"电影");
 
         mViewPager.setAdapter(pagerAdapter);
 
@@ -129,9 +129,9 @@ public class HomeFragment extends SkinBaseFragment {
         @Override
         public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
             //i>=0 Toolbar全部显示
-            subscribeFragment.setPullRefresh(verticalOffset>=0);
-            selecteFragment.setPullRefresh(verticalOffset>=0);
-            findFragment.setPullRefresh(verticalOffset>=0);
+            gameFragment.setPullRefresh(verticalOffset>=0);
+            technologyFragment.setPullRefresh(verticalOffset>=0);
+            filmFragment.setPullRefresh(verticalOffset>=0);
 //            selectdFragment.setPullRefresh(verticalOffset<0);
             System.out.println("i值:"+verticalOffset);
         }

@@ -4,7 +4,6 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -27,7 +26,6 @@ import com.lvlw.myapp.R;
 import com.lvlw.myapp.activity.NewsActivity;
 import com.lvlw.myapp.adapter.NewsAdapter;
 import com.lvlw.myapp.api.AppConfigs;
-import com.lvlw.myapp.api.GetData;
 import com.lvlw.myapp.api.GetDataService;
 import com.lvlw.myapp.entity.NewsData;
 import com.lvlw.myapp.utils.FrescoImageLoader;
@@ -61,7 +59,7 @@ import solid.ren.skinlibrary.base.SkinBaseFragment;
  * Created by w9859 on 2017/3/11.
  */
 
-public class FindFragment extends SkinBaseFragment {
+public class FilmFragment extends SkinBaseFragment {
     @BindView(R.id.find_banner)
     Banner findBanner;
     @BindView(R.id.find_recycler_view)
@@ -75,15 +73,11 @@ public class FindFragment extends SkinBaseFragment {
 
     private float curTranslationY;
     private AnimatorSet animSet;
-    private TextView refreshIndicator;
-    private GetData getData;
     private FrescoImageLoader frescoImageLoader;
     private NewsAdapter newsAdapter;
     private List<String> imageViewstr;
     private ArrayList<NewsData.ShowapiResBodyBean.PagebeanBean.ContentlistBean> list;
-    private List<View> mViews;
     private List<String> carousePageStrs;
-    private Context context;
     private RecyclerAdapterWithHF recyclerAdapterWithHF;
     private DefaultLoadingLayout loadingLayout;
     private Handler handler;

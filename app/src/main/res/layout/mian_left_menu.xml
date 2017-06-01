@@ -24,23 +24,27 @@
                 android:background="@color/main_color"
                 skin:enable="true"
                 android:orientation="horizontal"
-                android:paddingBottom="80dp"
+                android:paddingBottom="40dp"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
                 android:paddingTop="30dp"
             >
                 <com.lvlw.myapp.views.CircleImageView
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:src="@mipmap/header"/>
+                    android:id="@+id/user_header"
+                    android:layout_marginTop="20dp"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:src="@mipmap/unloginheader"/>
                 <TextView
+                    android:id="@+id/user_name"
+                    android:layout_marginTop="30dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="10dp"
-                    android:text="我的第一个APP，这是左滑菜单页～"
+                    android:layout_marginLeft="15dp"
+                    android:text="登陆"
                     android:textColor="@color/white_normal"
-                    android:textSize="12sp"/>
+                    android:textSize="20sp"/>
 
             </LinearLayout>
 

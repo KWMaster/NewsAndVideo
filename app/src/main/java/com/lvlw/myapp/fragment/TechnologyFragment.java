@@ -40,12 +40,10 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.lvlw.myapp.R;
 import com.lvlw.myapp.activity.NewsActivity;
+import com.lvlw.myapp.adapter.CarousePagerAdapter;
 import com.lvlw.myapp.adapter.NewsAdapter;
-import com.lvlw.myapp.adapter.SelectedPagerAdapter;
 import com.lvlw.myapp.api.AppConfigs;
 import com.lvlw.myapp.api.GetDataService;
-import com.lvlw.myapp.entity.DataBean;
-import com.lvlw.myapp.entity.DataInfo;
 import com.lvlw.myapp.entity.NewsData;
 import com.lvlw.myapp.iview.ICarousePagerSelectView;
 import com.lvlw.myapp.utils.GetRandomListInt;
@@ -82,12 +80,12 @@ import static android.content.ContentValues.TAG;
  * Created by w9859 on 2017/3/11.
  */
 
-public class SelectedFragment extends SkinBaseFragment {
+public class TechnologyFragment extends SkinBaseFragment {
     @BindView(R.id.fab1)
     FloatingActionButton fab1;
     private View headView;
     private ViewPager mViewPager;
-    private SelectedPagerAdapter mSelectedPagerAdapter;
+    private CarousePagerAdapter mCarousePagerAdapter;
 
     private ImageView[] tips;//底部
 
@@ -108,76 +106,6 @@ public class SelectedFragment extends SkinBaseFragment {
     private int page = 1;
     private String picture="http://mat1.gtimg.com/news/2013pic/picLogo.png";
     private boolean canrefresh=true;
-    //===========================================================================================================================================
-
-
-    private List<DataBean> mDatas = new ArrayList<>();
-    private List<DataBean> dataBeans = new ArrayList<>();
-    private static final String url = "http://www.imooc.com/api/teacher?type=4&num=30";
-    //Volley begin
-    private RequestQueue mQueue;
-    private RequestQueue queue;
-
-    //    //Volley end
-    //
-    private RequestQueue initRequestQueue(Context context) {
-        queue = Volley.newRequestQueue(context);
-        return queue;
-    }
-
-    private List<DataBean> getDataByVolley() {
-        //json 四个参数分别是:url, JSONObject对象这里为null，一个请求成功的Listener，和一个请求失败的Listener
-        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(url, null, new Response.Listener<JSONObject>() {
-            @Override
-            public void onResponse(JSONObject jsonObject) {
-                if (null != jsonObject) {
-                    //传入的"data" 是根据json返回字符串得来的
-                    try {
-                        JSONArray jsonArray = jsonObject.getJSONArray("data");
-                        //上一句代码可能报错，确认不报错再创建下面的对象
-                        //使用GSON加载 begin
-                        String dataString = jsonArray.toString();
-                        Gson gson = new GsonBuilder().serializeNulls().create();
-                        List<DataBean> beans = gson.fromJson(dataString, new TypeToken<List<DataBean>>() {
-                        }.getType());
-                        //                        for (DataBean d:beans
-                        //                             ) {
-                        //                            DataBean bean=new DataBean();
-                        //                            bean.setName(d.getName());
-                        //                            bean.setPicSmall(d.getPicSmall());
-                        //                            mDatas.add(bean);
-                        ////                            Log.d(TAG,d.getName()+" "+d.getPicSmall());
-                        //                        }
-                        //使用GSON加载 end
-                        //数据加载完后 再加载适配器
-                        //                        init(mDatas);
-                        for (DataBean bean : beans) {
-                            dataBeans.add(bean);
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError volleyError) {
-                Log.i(TAG, volleyError.getMessage(), volleyError);
-            }
-        });
-        queue.add(jsonObjectRequest);
-
-        return dataBeans;
-    }
-
-    //    public DataAdapter(Context context,List<DataBean> dataBeens,RequestQueue queue) {
-    //        initRequestQueue(context);
-    //        getDataByVolley();
-    //    }
-
-    //===========================================================================================================================================
-    private ArrayList<DataInfo.Info> arrayList;
-    private ArrayList<DataInfo.Info> aList = new ArrayList<>();
     private NewsAdapter newsAdapter;
     private List<String> imageViewstr;
     private ArrayList<NewsData.ShowapiResBodyBean.PagebeanBean.ContentlistBean> list;
@@ -278,13 +206,13 @@ public class SelectedFragment extends SkinBaseFragment {
                             mViews.add(simpleDraweeView);
                             //            }else break;
                         }
-                        //                        if (mSelectedPagerAdapter.getmViews()!=null&&mSelectedPagerAdapter.getmViews().size()>0){
-                        ////                            for (int i = 0; i < mSelectedPagerAdapter.getmViews().size(); i++) {
-                        //                                mSelectedPagerAdapter.getmViews().clear();
+                        //                        if (mCarousePagerAdapter.getmViews()!=null&&mCarousePagerAdapter.getmViews().size()>0){
+                        ////                            for (int i = 0; i < mCarousePagerAdapter.getmViews().size(); i++) {
+                        //                                mCarousePagerAdapter.getmViews().clear();
                         ////                            }
                         //                        }
 //                        tvContent.setText(carousePageStrs.get(0));
-                        mSelectedPagerAdapter.notifyDataSetChanged();
+                        mCarousePagerAdapter.notifyDataSetChanged();
                         mWithHF.notifyDataSetChanged();
                         mPtrClassicFrameLayout.refreshComplete();
                         mLoadingLayout.onDone();
@@ -365,7 +293,7 @@ public class SelectedFragment extends SkinBaseFragment {
         //        mDataAdapter=new DataAdapter(getActivity(),initData(1));
         newsAdapter = new NewsAdapter(getActivity(), list);
         mWithHF = new RecyclerAdapterWithHF(newsAdapter);
-        mSelectedPagerAdapter = new SelectedPagerAdapter();
+        mCarousePagerAdapter = new CarousePagerAdapter();
         View header = initCarouselHead(mViews);
         mWithHF.addHeader(header);
         mRecyclerView.setAdapter(mWithHF);
@@ -538,11 +466,11 @@ public class SelectedFragment extends SkinBaseFragment {
 
 
         mViewPager = (ViewPager) headView.findViewById(R.id.viewpager);
-        mSelectedPagerAdapter = new SelectedPagerAdapter(getActivity(), carousePagerSelectView, mmViews);
+        mCarousePagerAdapter = new CarousePagerAdapter(getActivity(), carousePagerSelectView, mmViews);
         mViewPager.setOffscreenPageLimit(2);
         mViewPager.setCurrentItem(0);
         mViewPager.addOnPageChangeListener(onPageChangeListener);
-        mViewPager.setAdapter(mSelectedPagerAdapter);
+        mViewPager.setAdapter(mCarousePagerAdapter);
 
         ViewGroup group = (ViewGroup) headView.findViewById(R.id.viewGroup);// 初始化底部显示控件
         tips = new ImageView[3];

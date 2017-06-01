@@ -5,36 +5,34 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
-import com.lvlw.myapp.eventmessage.EventMessage;
-import com.lvlw.myapp.fragment.FileDirFragment;
-import com.lvlw.myapp.fragment.FileFragment;
-import com.lvlw.myapp.fragment.FileScanSetFragment;
-import com.lvlw.myapp.fragment.GiftFragment;
+import com.lvlw.myapp.activity.LoginActivity;
+import com.lvlw.myapp.activity.UserDetilsActivity;
+import com.lvlw.myapp.eventmessage.LoginSuccess;
+import com.lvlw.myapp.fragment.AboutFragment;
+import com.lvlw.myapp.fragment.MyVideoFragment;
 import com.lvlw.myapp.fragment.HomeFragment;
-import com.lvlw.myapp.fragment.ShareFragment;
 import com.lvlw.myapp.fragment.ThemFragment;
 import com.lvlw.myapp.permission.PermissionsActivity;
 import com.lvlw.myapp.permission.PermissionsChecker;
+import com.lvlw.myapp.shareprefrence.ListDataSave;
+import com.lvlw.myapp.views.CircleImageView;
 
-//import org.greenrobot.eventbus.EventBus;
-//import org.greenrobot.eventbus.Subscribe;
-//import org.greenrobot.eventbus.ThreadMode;
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,21 +42,12 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import solid.ren.skinlibrary.base.SkinBaseActivity;
 
+
 public class MainActivity extends SkinBaseActivity {
 
     private static final String TAG = "wiwi";
     @BindView(R.id.content)
     FrameLayout mContent;
-    //    @BindView(R.id.rbHome)
-    //    RadioButton mRbHome;
-    //    @BindView(R.id.rbShop)
-    //    RadioButton mRbShop;
-    //    @BindView(R.id.rbMessage)
-    //    RadioButton mRbMessage;
-    //    @BindView(R.id.rbMine)
-    //    RadioButton mRbMine;
-    //    @BindView(R.id.rgTools)
-    //    RadioGroup mRgTools;
     @BindView(R.id.rl_home)
     RelativeLayout mRlHome;
     @BindView(R.id.rl_gift)
@@ -67,12 +56,8 @@ public class MainActivity extends SkinBaseActivity {
     RelativeLayout mRlShare;
     @BindView(R.id.activity_main)
     DrawerLayout mActivityMain;
-    //    @BindView(R.id.bottom_menu)
-    //    LinearLayout mBottomMenu;
     @BindView(R.id.rl_create_subject)
     RelativeLayout rlCreateSubject;
-    //    @BindView(R.id.appBarLayout)
-    //    AppBarLayout appBarLayout;
     @BindView(R.id.header)
     LinearLayout header;
     @BindView(R.id.iv_home)
@@ -83,11 +68,10 @@ public class MainActivity extends SkinBaseActivity {
     ImageView ivShare;
     @BindView(R.id.left_drawer)
     FrameLayout leftDrawer;
-//    @BindView(R.id.main_appBarLayout)
-//    AppBarLayout mainAppBarLayout;
-//    @BindView(R.id.main_toolbar)
-//    Toolbar mainToolbar;
-
+    @BindView(R.id.user_header)
+    CircleImageView userHeader;
+    @BindView(R.id.user_name)
+    TextView userName;
     private List<Fragment> mFragments;
     private int mIndex;
     private static final int REQUEST_CODE = 0; // 请求码
@@ -98,6 +82,9 @@ public class MainActivity extends SkinBaseActivity {
     };
     private PermissionsChecker mPermissionsChecker; // 权限检测器
     private boolean firstIn = true;
+    private boolean loginflag = false;
+
+    private ListDataSave listDataSave;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -105,27 +92,64 @@ public class MainActivity extends SkinBaseActivity {
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         mPermissionsChecker = new PermissionsChecker(this);
         setContentView(R.layout.activity_main);
-        //        setWindowStatus();
         ButterKnife.bind(this);
-//        EventBus.getDefault().register(this);
-        //        init();
-//        dynamicAddView(mainToolbar,"background",R.color.main_color);
+        listDataSave=new ListDataSave(this);
+        EventBus.getDefault().register(this);
+        initLoginListener();
     }
 
+    private void initLoginListener() {
+        if (listDataSave.getDataList("autologin")!=null&&listDataSave.getDataList("autologin").size()>0){
+            loginflag=true;
+            userHeader.setImageResource(R.mipmap.header);
+            userName.setText(listDataSave.getDataList("autologin").get(0).getUser_Name());
+        }
+        if (loginflag){
+            userHeader.setOnClickListener(new UserDetilsOnClickListener());
+            userName.setOnClickListener(new UserDetilsOnClickListener());
+        }else {
+            userHeader.setOnClickListener(new LoginOnClickListener());
+            userName.setOnClickListener(new LoginOnClickListener());
+        }
+    }
+
+    private class UserDetilsOnClickListener implements View.OnClickListener {
+
+        @Override
+        public void onClick(View v) {
+            if (mFragments.get(mIndex) instanceof MyVideoFragment){
+                mRlHome.performClick();
+            }
+            Bundle bundle=new Bundle();
+            bundle.putString("username",userName.getText().toString());
+            Intent intent=new Intent(MainActivity.this, UserDetilsActivity.class);
+            intent.putExtras(bundle);
+            startActivity(intent);
+        }
+    }
+
+    private class LoginOnClickListener implements View.OnClickListener {
+
+        @Override
+        public void onClick(View v) {
+            Intent intent=new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(intent);
+        }
+    }
 
     private void initFragment() {
         HomeFragment homeFragment = new HomeFragment();
 
         //左滑菜单
-        GiftFragment giftFragment = new GiftFragment();
-        ShareFragment shareFragment = new ShareFragment();
+        MyVideoFragment myVideoFragment = new MyVideoFragment();
+        AboutFragment aboutFragment = new AboutFragment();
         ThemFragment themFragment = new ThemFragment();
 
 
         mFragments = new ArrayList<>();
         mFragments.add(homeFragment);
-        mFragments.add(giftFragment);
-        mFragments.add(shareFragment);
+        mFragments.add(myVideoFragment);
+        mFragments.add(aboutFragment);
         mFragments.add(themFragment);
 
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
@@ -134,30 +158,12 @@ public class MainActivity extends SkinBaseActivity {
         mRlHome.setSelected(true);
     }
 
-    @OnClick({/*R.id.rbHome, R.id.rbShop, R.id.rbMessage, R.id.rbMine,*/ R.id.rl_home, R.id.rl_gift, R.id.rl_share, R.id.rl_create_subject})
+    @OnClick({R.id.rl_home, R.id.rl_gift, R.id.rl_share, R.id.rl_create_subject})
     public void onClick(View view) {
         switch (view.getId()) {
-            /*
-            case R.id.rbHome:
-                setIndexSelected(0);
-                mRlHome.setSelected(true);
-                break;
-            case R.id.rbShop:
-                onLeftMenuItemSelected();
-                setIndexSelected(1);
-                break;
-            case R.id.rbMessage:
-                onLeftMenuItemSelected();
-                setIndexSelected(2);
-                break;
-            case R.id.rbMine:
-                onLeftMenuItemSelected();
-                setIndexSelected(3);
-                break;
-                */
             //左滑菜单
             case R.id.rl_home:
-//                mainAppBarLayout.setVisibility(View.GONE);
+                //                mainAppBarLayout.setVisibility(View.GONE);
                 onLeftMenuItemSelected();
                 //                mRbHome.performClick();
                 setIndexSelected(0);
@@ -166,17 +172,21 @@ public class MainActivity extends SkinBaseActivity {
                 mActivityMain.closeDrawer(Gravity.LEFT);
                 break;
             case R.id.rl_gift:
-//                initToolbar("礼物");
-//                mainAppBarLayout.setVisibility(View.VISIBLE);
-                onLeftMenuItemSelected();
-                setIndexSelected(1);
-                mRlGift.setSelected(true);
+                //                initToolbar("礼物");
+                //                mainAppBarLayout.setVisibility(View.VISIBLE);
+                if (loginflag) {
+                    onLeftMenuItemSelected();
+                    setIndexSelected(1);
+                    mRlGift.setSelected(true);
+                }else {
+                    Toast.makeText(this,"此功能仅限登陆后使用，请先登录！",Toast.LENGTH_SHORT).show();
+                }
                 //                mBottomMenu.setVisibility(View.GONE);
                 mActivityMain.closeDrawer(Gravity.LEFT);
                 break;
             case R.id.rl_share:
-//                initToolbar("分享");
-//                mainAppBarLayout.setVisibility(View.VISIBLE);
+                //                initToolbar("分享");
+                //                mainAppBarLayout.setVisibility(View.VISIBLE);
                 onLeftMenuItemSelected();
                 setIndexSelected(2);
                 mRlShare.setSelected(true);
@@ -184,8 +194,8 @@ public class MainActivity extends SkinBaseActivity {
                 mActivityMain.closeDrawer(Gravity.LEFT);
                 break;
             case R.id.rl_create_subject:
-//                initToolbar("更换皮肤");
-//                mainAppBarLayout.setVisibility(View.VISIBLE);
+                //                initToolbar("更换皮肤");
+                //                mainAppBarLayout.setVisibility(View.VISIBLE);
                 onLeftMenuItemSelected();
                 setIndexSelected(3);
                 rlCreateSubject.setSelected(true);
@@ -195,29 +205,6 @@ public class MainActivity extends SkinBaseActivity {
         }
     }
 
-    //    public void changeBottommenuHeight(LinearLayout linearLayout, boolean isvisible) {
-    //        if (isvisible) {
-    //            ViewGroup.LayoutParams lp = linearLayout.getLayoutParams();
-    //            lp.height = LinearLayout.LayoutParams.WRAP_CONTENT;
-    //        } else {
-    //            ViewGroup.LayoutParams lp = linearLayout.getLayoutParams();
-    //            lp.height = 0;
-    //        }
-    //    }
-
-//    private void initToolbar(String menuitem) {
-//        mainToolbar.setNavigationIcon(R.mipmap.ic_menu_white);
-//        mainToolbar.setTitle(menuitem);
-//        mainToolbar.setTitleTextColor(getResources().getColor(R.color.white_normal));
-//        mainToolbar.setNavigationOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if (mActivityMain != null) {
-//                    mActivityMain.openDrawer(Gravity.START);
-//                }
-//            }
-//        });
-//    }
 
     public void onLeftMenuItemSelected() {
         mRlHome.setSelected(false);
@@ -262,6 +249,7 @@ public class MainActivity extends SkinBaseActivity {
                 firstIn = false;
             }
         }
+
     }
 
     private void startPermissionsActivity() {
@@ -278,60 +266,48 @@ public class MainActivity extends SkinBaseActivity {
     }
 
     public KeyEvent event;
+
     public KeyEvent getEvent() {
         return event;
     }
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (KeyEvent.KEYCODE_BACK==keyCode) {
-            this.event=event;
-            if (mFragments.get(mIndex) instanceof GiftFragment) {
-                ((GiftFragment) mFragments.get(mIndex)).onKeyDown(keyCode, event);
+        if (KeyEvent.KEYCODE_BACK == keyCode) {
+            this.event = event;
+            if (mFragments.get(mIndex) instanceof MyVideoFragment) {
+                ((MyVideoFragment) mFragments.get(mIndex)).onKeyDown(keyCode, event);
                 return true;
-            }else {
+            } else {
                 finish();
             }
         }
         return false;
     }
 
+    @Subscribe
+    public void onEventMainThread(LoginSuccess loginSuccess) {
+        userName.setText(loginSuccess.getUsername());
+        if (!userName.getText().toString().equals("登陆")){
+            loginflag=true;
+            userHeader.setImageResource(R.mipmap.header);
+            userHeader.setOnClickListener(new UserDetilsOnClickListener());
+            userName.setOnClickListener(new UserDetilsOnClickListener());
+        }else {
+            loginflag=false;
+            userHeader.setImageResource(R.mipmap.unloginheader);
+            userHeader.setOnClickListener(new LoginOnClickListener());
+            userName.setOnClickListener(new LoginOnClickListener());
+        }
+
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
-//        EventBus.getDefault().unregister(this);
+        EventBus.getDefault().unregister(this);
     }
 
-//    @Subscribe(threadMode = ThreadMode.MAIN)
-//    public void setGoIndex(EventMessage eventNessage) {
-//        Log.d(TAG, "setGoIndex" + eventNessage.getTag());
-//        if (eventNessage != null) {
-//            int tag = eventNessage.getTag();
 
-            //            if (tag == EventMessage.EventMessageAction.TAG_GO_MAIN) {
-            //                mRbHome.performClick();
-            //                mRlHome.setSelected(true);
-            //                setIndexSelected(0);
-            //            } else if (tag == EventMessage.EventMessageAction.TAG_GO_SHOPCART) {
-            //                mRbShop.performClick();
-            //                setIndexSelected(1);
-            //            } else if (tag == EventMessage.EventMessageAction.TAG_GO_MESSAGE) {
-            //                mRbMessage.performClick();
-            //                setIndexSelected(2);
-            //            }
-//        }
-//    }
-
-
-    // 设置状态栏
-    private void setWindowStatus() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            // 透明状态栏
-            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-            // 透明导航栏
-            //            getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
-            // 设置状态栏颜色
-            getWindow().setBackgroundDrawableResource(R.color.main_color);
-        }
-    }
 
 }

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:skin="http://schemas.android.com/android/skin"
+              skin:enable="true"
+              android:orientation="vertical"
+              android:gravity="center"
+              android:layout_width="match_parent"
+              android:background="@color/main_color"
+              android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:gravity="center_horizontal"
+        android:layout_centerVertical="true">
+
+        <View
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="130dp"
+            android:background="@android:color/transparent" />
+        <TextView
+            android:id="@+id/user_exit"
+            android:layout_weight="0.03"
+            android:paddingBottom="2dip"
+            android:paddingLeft="15dip"
+            android:paddingRight="15dip"
+            android:paddingTop="2dip"
+            android:background="@drawable/text_bg"
+            android:textColor="#ffffff"
+            android:textSize="20sp"
+            android:text="退出登录"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <View
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:background="@android:color/transparent" />
+        <TextView
+            android:id="@+id/user_destroy"
+            android:layout_weight="0.03"
+            android:paddingBottom="2dip"
+            android:paddingLeft="15dip"
+            android:paddingRight="15dip"
+            android:paddingTop="2dip"
+            android:background="@drawable/text_bg"
+            android:textColor="#ffffff"
+            android:textSize="20sp"
+            android:text="注销账户"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <View
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:background="@android:color/transparent" />
+        <TextView
+            android:id="@+id/user_mod_pwd"
+            android:layout_weight="0.03"
+            android:paddingBottom="2dip"
+            android:paddingLeft="15dip"
+            android:paddingRight="15dip"
+            android:paddingTop="2dip"
+            android:background="@drawable/text_bg"
+            android:textColor="#ffffff"
+            android:textSize="20sp"
+            android:text="修改密码"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <View
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="300dp"
+            android:background="@android:color/transparent" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

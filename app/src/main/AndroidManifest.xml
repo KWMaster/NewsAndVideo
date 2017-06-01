@@ -24,6 +24,8 @@
         </activity>
         <activity android:name=".permission.PermissionsActivity"/>
         <activity android:name=".ijkplayer.IjkFullscreenActivity"/>
+        <activity android:name=".activity.UserDetilsActivity"/>
+        <activity android:name=".activity.LoginActivity"/>
     </application>
 
 </manifest>

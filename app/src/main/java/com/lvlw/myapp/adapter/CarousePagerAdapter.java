@@ -19,7 +19,7 @@ import java.util.List;
  * Created by w9859 on 2017/3/12.
  */
 
-public class SelectedPagerAdapter extends PagerAdapter implements View.OnClickListener{
+public class CarousePagerAdapter extends PagerAdapter implements View.OnClickListener{
 
 
     private List<View> mViews;
@@ -29,14 +29,14 @@ public class SelectedPagerAdapter extends PagerAdapter implements View.OnClickLi
 //    private List<String> imageViewstr;
     private ICarousePagerSelectView mICarousePagerSelectView;
 
-    public SelectedPagerAdapter(Context context, ICarousePagerSelectView ICarousePagerSelectView, List<View> mViews) {
+    public CarousePagerAdapter(Context context, ICarousePagerSelectView ICarousePagerSelectView, List<View> mViews) {
 //        imageViewstr=imageViewstring;
         mICarousePagerSelectView = ICarousePagerSelectView;
         this.mViews=mViews;
 
     }
 
-    public SelectedPagerAdapter() {
+    public CarousePagerAdapter() {
     }
 
     public List<View> getViews() {

@@ -40,12 +40,12 @@ import solid.ren.skinlibrary.base.SkinBaseFragment;
 
 
 /**
- * 送礼物界面
+ * 我的视频界面
  *
  * @author ansen
  * @create time 2016-04-19
  */
-public class GiftFragment extends SkinBaseFragment {
+public class MyVideoFragment extends SkinBaseFragment {
 
     @BindView(R.id.seltall)
     TextView seltall;

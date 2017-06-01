@@ -31,55 +31,7 @@ public class NewsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     }
 
 
-//        Handler handler=new Handler();
-//        handler.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                Retrofit retrofit=new Retrofit.Builder()
-//                        .baseUrl(AppConfigs.URL_DATA)
-//                        .addConverterFactory(GsonConverterFactory.create())
-//                        .build();
-//                //        Api api=retrofit.create(Api.class);
-//                GetDataService getDataService=retrofit.create(GetDataService.class);
-//                Map<String,String> map=new HashMap<>();
-//                map.put(AppConfigs.APPID_NAME,AppConfigs.APPID);
-//                map.put(AppConfigs.SECRECT_NAME,AppConfigs.SECRECT);
-//                map.put(AppConfigs.TITLE_NAME,AppConfigs.TITLE);
-//                map.put(AppConfigs.MAXRESULT_NAME,AppConfigs.MAXRESULT);
-//                map.put(AppConfigs.PAGE_NAME,""+page);
-//                //        Call<DataInfo> call=api.getData(5,pages);
-//                //        call.enqueue(new Callback<DataInfo>() {
-//                //            @Override
-//                //            public void onResponse(Call<DataInfo> call, retrofit2.Response<DataInfo> response) {
-//                //                aList.addAll(response.body().results);
-//                //            }
-//                //
-//                //            @Override
-//                //            public void onFailure(Call<DataInfo> call, Throwable t) {
-//                //
-//                //            }
-//                //        });
-//                Call<NewsData> call=getDataService.getBeansData(map);
-//                call.enqueue(new Callback<NewsData>() {
-//                    @Override
-//                    public void onResponse(Call<NewsData> call, retrofit2.Response<NewsData> response) {
-//                        NewsData newsData=response.body();
-//                        if (newsData!=null){
-//                            list.addAll(newsData.getShowapi_res_body().getPagebean().getContentlist());
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onFailure(Call<NewsData> call, Throwable t) {
-//
-//                    }
-//                });
-//            }
-//        }, 1000);
 
-    //    private void init(List<DataBean> datas) {
-    //
-    //    }
 
     @Override
     public NewsAdapter.NewsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {

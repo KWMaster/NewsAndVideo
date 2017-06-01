@@ -27,7 +27,6 @@ import com.lvlw.myapp.R;
 import com.lvlw.myapp.activity.NewsActivity;
 import com.lvlw.myapp.adapter.NewsAdapter;
 import com.lvlw.myapp.api.AppConfigs;
-import com.lvlw.myapp.api.GetData;
 import com.lvlw.myapp.api.GetDataService;
 import com.lvlw.myapp.entity.NewsData;
 import com.lvlw.myapp.utils.FrescoImageLoader;
@@ -61,7 +60,7 @@ import solid.ren.skinlibrary.base.SkinBaseFragment;
  * Created by w9859 on 2017/3/11.
  */
 
-public class SubscribeFragment extends SkinBaseFragment {
+public class GameFragment extends SkinBaseFragment {
     @BindView(R.id.subscribe_recycler_view)
     RecyclerView subscribeRecyclerView;
     @BindView(R.id.subscribe_recycler_view_frame)
@@ -75,7 +74,6 @@ public class SubscribeFragment extends SkinBaseFragment {
 
     private float curTranslationY;
     private AnimatorSet animSet;
-    private GetData getData;
     private FrescoImageLoader frescoImageLoader;
     private NewsAdapter newsAdapter;
     private List<String> imageViewstr;

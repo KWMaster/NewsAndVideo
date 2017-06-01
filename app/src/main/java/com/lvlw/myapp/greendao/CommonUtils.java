@@ -4,8 +4,10 @@ import android.content.Context;
 import android.util.Log;
 
 import com.VideoInfo.dao.FileFolderDao;
+import com.VideoInfo.dao.UserInfoDao;
 import com.VideoInfo.dao.VideoInfoDao;
 import com.VideoInfo.entity.FileFolder;
+import com.VideoInfo.entity.UserInfo;
 import com.VideoInfo.entity.VideoInfo;
 
 import java.util.List;
@@ -33,7 +35,7 @@ public class CommonUtils {
         //查询构建器
 
     }
-
+    //-------------------------------videoInfo-------------------------------
     /**
      * 对数据库中student表的插入操作
      *
@@ -159,7 +161,7 @@ public class CommonUtils {
         Log.i(TAG, list + "");
         return false;
     }
-
+    //-------------------------------fileFolder-------------------------------
     /**
      * 批量插入
      *
@@ -228,5 +230,78 @@ public class CommonUtils {
         }
         Log.i(TAG, list + "");
         return false;
+    }
+
+    //-------------------------------userinfo-------------------------------
+    /**
+     * 对数据库中userinfo表的插入操作
+     *
+     * @param userinfo
+     * @return
+     */
+    public boolean insertUserInfo(UserInfo userinfo) {
+        boolean flag = false;
+        flag = daoManager.getDaoSession().insert(userinfo) != -1 ? true : false;
+        return flag;
+    }
+
+    /**
+     * 修改
+     *
+     * @param userinfo
+     * @return
+     */
+    public boolean updateUserInfo(UserInfo userinfo) {
+        boolean flag = false;
+        try {
+            daoManager.getDaoSession().update(userinfo);
+            flag = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return flag;
+    }
+
+    /**
+     * 删除
+     *
+     * @param userinfo
+     * @return
+     */
+    public boolean deleteUserInfo(UserInfo userinfo) {
+        boolean flag = false;
+        try {
+            //删除指定ID
+            daoManager.getDaoSession().delete(userinfo);
+            flag = true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        //daoManager.getDaoSession().deleteAll(); //删除所有记录
+        return flag;
+    }
+
+    /**
+     * QueryBuilder查询是否存在某条记录
+     */
+    public boolean queryBuilderUserInfo(String username) {
+        QueryBuilder<UserInfo> queryBuilder = daoManager.getDaoSession().queryBuilder(UserInfo.class);
+        List<UserInfo> list = queryBuilder.where(UserInfoDao.Properties.User_Name.eq(username)).list();
+        if (list.size()>0){
+            return true;
+        }
+        Log.i(TAG, list + "");
+        return false;
+    }
+    /**
+     * QueryBuilder查询某条记录
+     */
+    public UserInfo queryBuilderOneUserInfo(String username) {
+        QueryBuilder<UserInfo> queryBuilder = daoManager.getDaoSession().queryBuilder(UserInfo.class);
+        List<UserInfo> list = queryBuilder.where(UserInfoDao.Properties.User_Name.eq(username)).list();
+        if (list.size()==1){
+            return list.get(0);
+        }
+        return null;
     }
 }
