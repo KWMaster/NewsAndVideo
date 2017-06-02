@@ -14,6 +14,7 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.lvlw.myapp.R;
@@ -196,12 +197,17 @@ public class MyAdapter extends BaseAdapter {
 
         @Override
         public void onClick(View v) {
-            Intent intent = new Intent(fromActivity, IjkFullscreenActivity.class);
-            Bundle bundle = new Bundle();
-            Gson gson = new Gson();
-            bundle.putString("playlist", gson.toJson(videoInfo));
-            intent.putExtras(bundle);
-            fromActivity.startActivity(intent);
+            File file=new File(videoInfo.get_filePath());
+            if (file.exists()){
+                Intent intent = new Intent(fromActivity, IjkFullscreenActivity.class);
+                Bundle bundle = new Bundle();
+                Gson gson = new Gson();
+                bundle.putString("playlist", gson.toJson(videoInfo));
+                intent.putExtras(bundle);
+                fromActivity.startActivity(intent);
+            }else {
+                Toast.makeText(mContext,"此视频文件不存在，请删除",Toast.LENGTH_SHORT).show();
+            }
         }
     }
 
