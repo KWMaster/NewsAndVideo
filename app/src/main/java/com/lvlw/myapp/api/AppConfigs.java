@@ -12,10 +12,10 @@ public class AppConfigs {
     public static final String SECRECT = "d05cb69136d64405b1d6f2fd018355ce";
     public static final String SECRECT_NAME = "showapi_sign";
 
-    public static final String CHANNELID_TECHOLOGY = "5572a10ab3cdc86cf39001f4";
-    public static final String CHANNELID_GAME = "5572a10ab3cdc86cf39001ee";
-    public static final String CHANNELID_FILM = "5572a10ab3cdc86cf39001ec";
-    public static final String CHANNELID_NAME = "channelId";
+    public static final String CHANNELID_TECHOLOGY = "科技";
+    public static final String CHANNELID_GAME = "游戏";
+    public static final String CHANNELID_FILM = "电影";
+    public static final String CHANNELID_NAME = "title";
 
     public static final String MAXRESULT_NAME = "maxResult";
     public static final String MAXRESULT = "20";
