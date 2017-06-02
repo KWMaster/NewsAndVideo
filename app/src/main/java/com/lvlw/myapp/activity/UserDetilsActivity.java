@@ -1,6 +1,5 @@
 package com.lvlw.myapp.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.AppBarLayout;
@@ -12,10 +11,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.View;
 
-import com.lvlw.myapp.MainActivity;
 import com.lvlw.myapp.R;
-import com.lvlw.myapp.fragment.LoginFragment;
-import com.lvlw.myapp.fragment.RegisterFragment;
 import com.lvlw.myapp.fragment.UserDetilsOne;
 import com.lvlw.myapp.fragment.UserDetilsTwo;
 

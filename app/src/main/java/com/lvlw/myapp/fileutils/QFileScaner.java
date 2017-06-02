@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import wseemann.media.FFmpegMediaMetadataRetriever;
 
 
 /**
@@ -53,7 +54,7 @@ public final class QFileScaner {
 //        filterfolder.add("Android");
     }
 
-    public void Start(File file, final MediaMetadataRetriever mMetadataRetriever) {
+    public void Start(File file, final FFmpegMediaMetadataRetriever mMetadataRetriever) {
 
 
         if (file.isDirectory()) {
@@ -105,7 +106,7 @@ public final class QFileScaner {
                                     info.set_fileExt(ext);
                                     info.set_fileSize(file.length() / 1024 / 1024 + "MB");
                                     mMetadataRetriever.setDataSource(file.getAbsolutePath());
-                                    info.set_fileDesc(secToTime(Integer.parseInt(mMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION)) / 1000));
+                                    info.set_fileDesc(secToTime(Integer.parseInt(mMetadataRetriever.extractMetadata(FFmpegMediaMetadataRetriever.METADATA_KEY_DURATION)) / 1000));
                                     _resultFiles.add(info);
                                 }
                             }
@@ -185,7 +186,6 @@ public final class QFileScaner {
         _extFilter.add(".3gp");
         _extFilter.add(".wmv");
         _extFilter.add(".ts");
-        _extFilter.add(".rmvb");
         _extFilter.add(".mov");
         _extFilter.add(".m4v");
         _extFilter.add(".avi");
@@ -196,7 +196,6 @@ public final class QFileScaner {
         _extFilter.add(".flv");
         _extFilter.add(".divx");
         _extFilter.add(".f4v");
-        _extFilter.add(".rm");
         _extFilter.add(".asf");
         _extFilter.add(".ram");
         _extFilter.add(".mpg");

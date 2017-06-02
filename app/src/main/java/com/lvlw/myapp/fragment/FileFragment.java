@@ -37,6 +37,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import wseemann.media.FFmpegMediaMetadataRetriever;
 
 /**
  * Created by Wantrer on 2017/4/22 0022.
@@ -77,7 +78,7 @@ public class FileFragment extends Fragment {
     private final String dbName = "videoinfo.db";
 
     private MyAdapter mAdapter;
-    private MediaMetadataRetriever mMetadataRetriever;
+    private FFmpegMediaMetadataRetriever mMetadataRetriever;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -236,7 +237,7 @@ public class FileFragment extends Fragment {
     public void scanSDCard(){
         videoInfos = new ArrayList<VideoInfo>();
         mDatas = ((MyAdapter) getFile().getAdapter()).getmDatas();
-        mMetadataRetriever = new MediaMetadataRetriever();
+        mMetadataRetriever = new FFmpegMediaMetadataRetriever();
         dbUtils = new CommonUtils(getActivity(), dbName);
         new AsyncTask<Context, Integer, List<QFileInfo>>() {
             private ProgressDialog dialog;

@@ -76,4 +76,5 @@ dependencies {
     compile 'com.github.bumptech.glide:glide:3.7.0'
     compile project(':playerview')
     compile 'com.astuetz:pagerslidingtabstrip:1.0.1'
+    compile 'com.github.wseemann:FFmpegMediaMetadataRetriever:1.0.14'
 }
